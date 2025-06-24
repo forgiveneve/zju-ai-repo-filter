@@ -74,7 +74,7 @@ if st.button("开始筛选"):
                                 "作者": username,
                                 "邮箱": email,
                                 "Bio": bio,
-                                "是否可能来自ZJU": "Zhejiang" in (bio or "") or "ZJU" in (bio or "") or or "浙江大学" in (bio or "") "浙大" in (bio or ""),
+                                "是否可能来自ZJU": "Zhejiang" in (bio or "") or "ZJU" in (bio or "") or "浙江大学" in (bio or "") or "浙大" in (bio or ""),
                                 "是否ZJU邮箱": email.endswith("zju.edu.cn") if email else False
                             })
                             if len(all_results) >= max_repos:
