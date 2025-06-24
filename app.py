@@ -8,10 +8,8 @@ from datetime import datetime
 st.set_page_config(page_title="GitHub AI 项目筛选器", layout="wide")
 st.title("🔍 GitHub AI 后训练项目筛选器")
 
-keywords = [
-    "LoRA", "SFT", "RLHF", "transformer", "BERT", "Chatbot", "Prompt", "LLM",
-    "GPT", "finetune", "tuning", "adapter", "knowledge distillation", "self-instruct"
-]
+keywords_input = st.text_input("关键词（英文逗号分隔）", "LoRA,SFT,RLHF,transformer, BERT, Chatbot, Prompt, LLM,
+    GPT, finetune, tuning, adapter, knowledge distillation, self-instruct")
 min_stars = st.slider("最小 Stars", 0, 500, 2)
 max_repos = st.slider("最多结果数", 100, 3000, 1000)
 github_token = st.text_input("GitHub Token（必填）", type="password")
