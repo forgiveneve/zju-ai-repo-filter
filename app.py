@@ -8,8 +8,7 @@ from datetime import datetime
 st.set_page_config(page_title="GitHub AI 项目筛选器", layout="wide")
 st.title("🔍 GitHub AI 后训练项目筛选器")
 
-keywords_input = st.text_input("关键词（英文逗号分隔）", "LoRA,SFT,RLHF,transformer, BERT, Chatbot, Prompt, LLM,
-    GPT, finetune, tuning, adapter, knowledge distillation, self-instruct")
+keywords_input = st.text_input("关键词（英文逗号分隔）", "LoRA,SFT,RLHF,Prompt,LLM")
 min_stars = st.slider("最小 Stars", 0, 500, 2)
 max_repos = st.slider("最多结果数", 100, 3000, 1000)
 github_token = st.text_input("GitHub Token（必填）", type="password")
@@ -56,7 +55,7 @@ if st.button("开始筛选"):
         with st.spinner("正在抓取 GitHub 数据，请稍候..."):
             for keyword in [k.strip() for k in keywords_input.split(",") if k.strip()]:
                 for start_date, end_date in created_ranges:
-                    for page in range(1, 35):  # 每段最多抓 34 页（1020 条）
+                    for page in range(1, 35):
                         data = search_github_repos(keyword, page, headers, min_stars, start_date, end_date)
                         items = data.get("items", [])
                         if not items:
@@ -72,7 +71,7 @@ if st.button("开始筛选"):
                                 "作者": username,
                                 "邮箱": email,
                                 "Bio": bio,
-                                "是否可能来自ZJU": "Zhejiang" in (bio or "") or "ZJU" in (bio or "") or "浙江大学" in (bio or "") or "浙大" in (bio or ""),
+                                "是否可能来自ZJU": any(x in (bio or "") for x in ["ZJU", "Zhejiang", "浙江大学", "浙大"]),
                                 "是否ZJU邮箱": email.endswith("zju.edu.cn") if email else False
                             })
                             if len(all_results) >= max_repos:
